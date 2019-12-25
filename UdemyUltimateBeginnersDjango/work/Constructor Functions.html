@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Constructor Functions</title>
+
+    <script>
+        "use strict";
+
+        function User(){
+            this.name = "Larry";
+
+            this.sayHi = function() {
+                alert(this.name); };
+        };
+
+        let user = new User();
+        user.sayHi();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

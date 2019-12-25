@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+
+        let v = { "name": "Larry" };
+        let vv = { name: "Larry" };
+        console.log(v);
+        console.log(vv);
+
+        tmp = {};
+        tmp.me = "me";
+
+        function marry(man,woman) {
+            woman.husband = man;
+            man.wife = woman;
+
+            return {
+                father: man,
+                mother: woman }
+        }
+
+        let family = marry({
+            name: "Larry"}, { name: "Elizabeth" } );
+
+        console.log(family);
+        console.log(tmp.me);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

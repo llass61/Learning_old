@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Differentiate 3D Polygons</title>
+
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/4.3/esri/css/main.css">
+
+    <style>
+      html,body,#map1 {
+        padding:0;
+        margin:0;
+        height:100%;
+        width: 100%;
+        }
+    </style>
+
+    <script src="https://js.arcgis.com/4.3/"></script>
+
+    <!--
+        If I leave 'esri/Graphic' in, it shows nothing w/o errors?
+        why?
+    -->
+    <script>
+
+        var myMap, mySceneView;
+        require([
+            "esri/Map",
+            "esri/renderers/SimpleRenderer",
+            "esri/symbols/PolygonSymbol3D",
+            "esri/symbols/ExtrudeSymbol3DLayer",
+            "esri/layers/FeatureLayer",
+            "esri/views/SceneView",
+            "dojo/domReady!"],
+            function(
+                Map,
+                SimpleRenderer,
+                PolygonSymbol3D,
+                ExtrudeSymbol3DLayer,
+                FeatureLayer,
+                SceneView) {
+
+                var myPolygonSymbol3D = new PolygonSymbol3D({
+                    symbolLayers: [
+                        new ExtrudeSymbol3DLayer({
+
+                        })
+                    ]
+                });
+
+                var myRenderer = new SimpleRenderer({
+                    symbol: myPolygonSymbol3D,
+                    visualVariables: [
+                        {
+                            type: "size",
+                            field: "Area",
+                            valueUnit: "meters"
+                        },
+                        {
+                            type: "color",
+                            field: "Area",
+                            stops: [
+                                {value: 700, color: "#ed5151", label: " "},
+                                {value: 600, color: "#005ce6", label: " "},
+                                {value: 300, color: "#38a800", label: " "}
+                            ]
+                        },
+                        {
+                            type: "opacity",
+                            field: "Area",
+                            stops: [
+                                {value: 700, opacity: 1.0},
+                                {value: 600, opacity: 0.8},
+                                {value: 300, opacity: 0.5}
+                            ]
+                        }
+                    ]
+                });
+
+                var myPopupTemplate = {
+                    title: "{Name}",
+                    content: [{
+                        type: "fields",
+                        fieldInfos: [{
+                            fieldName: "Name",
+                            label: "Location Name",
+                            visible: true
+                        },
+                        {
+                            fieldName: "Description",
+                            label: "Building Type",
+                            visible: true
+                        },
+                        {
+                            fieldName: "ID",
+                            visible: true
+                        },
+                        {
+                            fieldName: "Area",
+                            visible: true
+                        },
+                        {
+                            fieldName: "Date_of_Change",
+                            visible: true
+                        }]
+                    }]
+                };
+
+                 var myPolygonFeatureLayer = new FeatureLayer({
+                    url: "https://services8.arcgis.com/P1CGETsPIy6mpgLS/arcgis/rest/services/PolygonLayer_View1/FeatureServer",
+                    //url: "https://services8.arcgis.com/P1CGETsPIy6mpgLS/arcgis/rest/services/PolygonLayer_View1/MapServer",
+                    renderer: myRenderer,
+                    outFields: ["*"],
+                    popupTemplate: myPopupTemplate
+                 });
+
+                myMap = new Map({
+                    basemap: "national-geographic",
+                    layers: [myPolygonFeatureLayer],
+                    ground: "world-elevation",
+                });
+
+                mySceneView = new SceneView({
+                    container: "map1",
+                    map: myMap,
+                    camera: {
+                        position: [-121.8554, 37.1338, 6000],
+                        tilt: 80,
+                        heading: 350
+                    }
+                 });
+             });
+    </script>
+
+</head>
+
+<body>
+    <div id="map1"></div>
+</body>
+</html>

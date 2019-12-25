@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://js.arcgis.com/3.24/esri/css/esri.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.24/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.24/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.24/dijit/themes/nihilo/nihilo.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.24/dijit/themes/soria/soria.css">
+
+    <link rel="stylesheet" href="./css/a.css">
+
+    <script src="https://js.arcgis.com/3.24/"></script>
+
+    <!-- <script src="./basemapEx.js"></script> -->
+    <!-- <script src="./getArcgisMapEx.js"></script> -->
+    <!-- <script src="./gridI_test.js"></script> -->
+
+    <script src="./esriVideo1.js"></script>
+
+
+    <script>
+        require(["esri/map", "dojo/domReady!"], 
+            
+            function(Map) { 
+                map = new Map("mapDiv", {
+                    basemap: "topo",
+                    center: [-122.45, 37.75],
+                    zoom: 13
+                });
+            });
+    </script>
+
+    <title>Document</title>
+</head>
+<body class="soria">
+    <div id="mapDiv"></div>
+</body>
+</html>

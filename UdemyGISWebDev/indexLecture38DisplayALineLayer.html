@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display a Line Layer</title>
+
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/4.3/esri/css/main.css">
+
+    <style>
+      html,body,#map1 {
+        padding:0;
+        margin:0;
+        height:100%;
+        width: 100%;
+        }
+    </style>
+
+    <script src="https://js.arcgis.com/4.3/"></script>
+
+    <!--
+        If I leave 'esri/Graphic' in, it shows nothing w/o errors?
+        why?
+    -->
+    <script>
+
+        var myMap, mySceneView;
+        require([
+            "esri/Map",
+            "esri/widgets/LayerList",
+            "esri/widgets/Legend",
+            "esri/layers/FeatureLayer",
+            "esri/views/SceneView",
+            "dojo/domReady!"],
+            function(
+                Map,
+                LayerList,
+                Legend,
+                FeatureLayer,
+                SceneView) {
+
+                var myPopupTemplate = {
+                    title: "{Name}",
+                    content: [{
+                        type: "fields",
+                        fieldInfos: [{
+                            fieldName: "Name",
+                            label: "School Name",
+                            visible: true
+                        },
+                        {
+                            fieldName: "Description",
+                            label: "School Type",
+                            visible: true
+                        },
+                        {
+                            fieldName: "ID",
+                            visible: true
+                        },
+                        {
+                            fieldName: "Date_of_Creation",
+                            visible: true
+                        }]
+                    }]
+                };
+
+                var myPopupTemplate2 = {
+                    title: "{Name}",
+                    content: [{
+                        type: "fields",
+                        fieldInfos: [{
+                            fieldName: "Name",
+                            label: "Path Name",
+                            visible: true
+                        },
+                        {
+                            fieldName: "Description",
+                            label: "Path Purpose",
+                            visible: true
+                        },
+                        {
+                            fieldName: "ID",
+                            visible: true
+                        },
+                        {
+                            fieldName: "Date_of_Creation",
+                            visible: true
+                        }]
+                    }]
+                };
+
+                 var myPointFeatureLayer = new FeatureLayer({
+                    url: "https://services8.arcgis.com/P1CGETsPIy6mpgLS/arcgis/rest/services/pointlayer/FeatureServer",
+                    outFields: ["*"],
+                    popupTemplate: myPopupTemplate
+                 });
+
+                 var myLineFeatureLayer = new FeatureLayer({
+                    url: "https://services8.arcgis.com/P1CGETsPIy6mpgLS/arcgis/rest/services/linelayer/FeatureServer",
+                    outFields: ["*"],
+                    popupTemplate: myPopupTemplate2
+                 });
+
+                myMap = new Map({
+                    basemap: "streets",
+                    layers: [myPointFeatureLayer, myLineFeatureLayer],
+                    ground: "world-elevation",
+                });
+
+                mySceneView = new SceneView({
+                    container: "map1",
+                    map: myMap,
+                    camera: {
+                        position: [-121.8554, 37.3338, 1000],
+                        tilt: 80,
+                        heading: 300
+                    }
+                 });
+
+                var myLegend = new Legend({
+                    view: mySceneView,
+                    layerInfos: [{
+                        layer: myPointFeatureLayer,
+                        title: "Legend for school"
+                    },
+                    {
+                        layer: myLineFeatureLayer,
+                        title: "Legend for path"
+                    }]
+                });
+
+                var myLayerList = new LayerList({
+                    view: mySceneView
+                });
+
+                mySceneView.ui.add(myLayerList, "top-right");
+                mySceneView.ui.add(myLegend, "top-right");
+             });
+    </script>
+
+</head>
+
+<body>
+    <div id="map1"></div>
+</body>
+</html>

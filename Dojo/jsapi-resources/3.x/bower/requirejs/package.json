@@ -1,0 +1,22 @@
+{
+  "name": "arcgis-js-api-sample-app",
+  "version": "1.0.0",
+  "description": "Sample application for building the ArcGIS API for JavaScript using Bower and RequireJS",
+  "repository": {
+    "url": "https://github.com/Esri/jsapi-resources/3.x/bower/requirejs"
+  },
+  "scripts": {
+    "preinstall": "bower install",
+    "build": "grunt build",
+    "clean": "grunt clean"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "grunt": "^1.0.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-requirejs": "^1.0.0",
+    "uglify-js": "^2.4.23",
+    "grunt-sass": "^2.0.0"
+  }
+}

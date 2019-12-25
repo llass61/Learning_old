@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Point Layer</title>
+
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/4.3/esri/css/main.css">
+
+    <style>
+      html,body,#map1 {
+        padding:0;
+        margin:0;
+        height:100%;
+        width: 100%;
+        }
+    </style>
+
+    <script src="https://js.arcgis.com/4.3/"></script>
+
+    <!--
+        If I leave 'esri/Graphic' in, it shows nothing w/o errors?
+        why?
+    -->
+    <script>
+
+        var myMap, mySceneView;
+        require([
+            "esri/Map",
+            "esri/widgets/Expand",
+            "esri/widgets/BasemapGallery",
+            "esri/widgets/Locate",
+            "esri/widgets/BasemapToggle",
+            "esri/widgets/Search",
+            "esri/widgets/Home",
+            "esri/views/SceneView",
+            "dojo/domReady!"],
+            function(
+                Map,
+                Expand,
+                BasemapGallery,
+                Locate,
+                BasemapToggle,
+                Search,
+                Home,
+                SceneView) {
+
+                myMap = new Map({
+                    basemap: "national-geographic",
+                    ground: "world-elevation",
+                });
+
+                mySceneView = new SceneView({
+                    container: "map1",
+                    map: myMap,
+                    camera: {
+                        position: [-122.4479, 37.7531, 1000],
+                        tilt: 80,
+                        heading: 330
+                    }
+                 });
+
+                 var myHome = new Home({
+                    view: mySceneView
+                 });
+
+                 var mySearch = new Search({
+                    view: mySceneView
+                 });
+
+                 var myBasemapToggle = new BasemapToggle({
+                    view: mySceneView,
+                    nextBasemap: "satellite"
+                 });
+
+                 var myLocate = new Locate({
+                    view: mySceneView
+                 });
+
+                 var myBasemapGallery = new BasemapGallery({
+                    container: document.createElement("div"),
+                    view: mySceneView
+                 });
+
+                 var myBasemapGalleryExpand = new Expand({
+                    expandIconClass: "esri-icon-basemap",
+                    view: mySceneView,
+                    content: myBasemapGallery.domNode
+                 });
+
+                 mySceneView.ui.add(myHome, "top-left");
+                 mySceneView.ui.add(mySearch, "top-right");
+                 mySceneView.ui.add(myBasemapToggle, "top-right");
+                 mySceneView.ui.add(myLocate, "top-left");
+                 mySceneView.ui.add(myBasemapGalleryExpand, "top-right");
+
+
+             });
+    </script>
+
+</head>
+
+<body>
+    <div id="map1"></div>
+</body>
+</html>

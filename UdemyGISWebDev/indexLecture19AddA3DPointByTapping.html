@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add A 3D Point By Tapping</title>
+
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/4.3/esri/css/main.css">
+
+    <style>
+      html,body,#map1 {
+        padding:0;
+        margin:0;
+        height:100%;
+        width: 100%;
+        }
+    </style>
+
+    <script src="https://js.arcgis.com/4.3/"></script>
+
+    <!--
+        If I leave 'esri/Graphic' in, it shows nothing w/o errors?
+        why?
+    -->
+    <script>
+
+        var myMap, mySceneView;
+        require([
+            "esri/Map",
+            "esri/geometry/Point",
+            "esri/Graphic",
+            "esri/symbols/PointSymbol3D",
+            "esri/symbols/ObjectSymbol3DLayer",
+            "esri/views/SceneView",
+            "dojo/domReady!"],
+            function(
+                Map,
+                Point,
+                Graphic,
+                PointSymbol3D,
+                ObjectSymbol3DLayer,
+                SceneView) {
+
+               var myPointSymbol = new PointSymbol3D({
+                    symbolLayers: [new ObjectSymbol3DLayer({
+                        material: { color: [160,7,7] },
+                        resources: { primitive: "sphere" },
+                        width: 380
+                     }), ]
+               })
+
+               // var myPoint = new Point([-122.4479, 37.7531]);
+
+                myMap = new Map({
+                    basemap: "national-geographic",
+                    ground: "world-elevation",
+                });
+
+                mySceneView = new SceneView({
+                    container: "map1",
+                    map: myMap,
+                    camera: {
+                        position: [-122.4479, 37.7531, 1500],
+                        tilt: 80,
+                        heading: 360
+                    }
+                 });
+
+                 //mySceneView.then(function(){
+                  //  mySceneView.graphics.add(new Graphic({
+                  //      geometry: myPoint,
+                  //      symbol: myPointSymbol
+                  //  }));
+                // });
+
+                mySceneView.on("click", function(e) {
+                    var clickPoint = e.mapPoint;
+                    mySceneView.graphics.removeAll();
+                    mySceneView.graphics.add(new Graphic({
+                        geometry: clickPoint,
+                        symbol: myPointSymbol,
+                    }));
+                });
+
+             });
+    </script>
+
+</head>
+
+<body>
+    <div id="map1"></div>
+</body>
+</html>

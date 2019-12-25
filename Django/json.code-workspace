@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "UdemyUltimateBeginners"
+		}
+	],
+	"settings": {
+		"python.pythonPath": "C:\\Users\\llassetter\\AppData\\Local\\Programs\\Python\\Python36\\python.exe",
+		"python.terminal.activateEnvironment": true,
+	}
+}

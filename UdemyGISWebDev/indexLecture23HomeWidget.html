@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Widget</title>
+
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/4.3/esri/css/main.css">
+
+    <style>
+      html,body,#map1 {
+        padding:0;
+        margin:0;
+        height:100%;
+        width: 100%;
+        }
+    </style>
+
+    <script src="https://js.arcgis.com/4.3/"></script>
+
+    <!--
+        If I leave 'esri/Graphic' in, it shows nothing w/o errors?
+        why?
+    -->
+    <script>
+
+        var myMap, mySceneView;
+        require([
+            "esri/Map",
+            "esri/widgets/Home",
+            "esri/views/SceneView",
+            "dojo/domReady!"],
+            function(
+                Map,
+                Home,
+                SceneView) {
+
+                myMap = new Map({
+                    basemap: "national-geographic",
+                    ground: "world-elevation",
+                });
+
+                mySceneView = new SceneView({
+                    container: "map1",
+                    map: myMap,
+                    camera: {
+                        position: [-122.4479, 37.7531, 1000],
+                        tilt: 80,
+                        heading: 330
+                    }
+                 });
+
+                 var myHome = new Home({
+                    view: mySceneView
+                 });
+
+                 mySceneView.ui.add(myHome, "top-left");
+
+             });
+    </script>
+
+</head>
+
+<body>
+    <div id="map1"></div>
+</body>
+</html>

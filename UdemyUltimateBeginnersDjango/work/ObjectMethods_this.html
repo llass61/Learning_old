@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object Methods</title>
+
+    <script>
+        //"use strict"
+
+        let obj1 = {
+            name: "Larry",
+
+            getName() { return this.name; },
+            hello() { return "hello"; }
+        };
+
+        console.log(obj1);
+        console.log(obj1.getName());
+
+        console.log("check this access");
+        (obj1.name == "Larry" ? obj1.getName : obj1.hello)();
+    </script>
+</head>
+<body>
+
+</body>
+</html>
